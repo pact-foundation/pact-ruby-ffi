@@ -57,7 +57,7 @@ start_demo_gprc_consumer:
 	ruby examples/area_calculator/area_calculator_consumer_run.rb
 
 verify_demo_gprc_local:
-	TEST_COMMAND='pact/verifier/pact_verifier_cli -f examples/area_calculator/pacts/grpc-consumer-ruby-area-calculator-provider.json -p 37757 -l info' \
+	TEST_COMMAND='pact/standalone/pact/bin/pact_verifier_cli -f examples/area_calculator/pacts/grpc-consumer-ruby-area-calculator-provider.json -p 37757 -l info' \
 	make start_server_and_test
 
 start_broker:
@@ -77,7 +77,7 @@ publish_pacts:
 	
 
 verify_demo_gprc_publish_broker:
-	TEST_COMMAND="pact/verifier/pact_verifier_cli \
+	TEST_COMMAND="pact/standalone/pact/bin/pact_verifier_cli \
 	-f pacts/grpc-consumer-ruby-area-calculator-provider.json \
 	-p 37757 \
 	-l info \
@@ -88,7 +88,7 @@ verify_demo_gprc_publish_broker:
 	./start_server_and_test.sh
 
 verify_demo_gprc_fetch_broker:
-	TEST_COMMAND="pact/verifier/pact_verifier_cli \
+	TEST_COMMAND="pact/standalone/pact/bin/pact_verifier_cli \
 	-p 37757 \
 	-l debug \
 	--publish \
