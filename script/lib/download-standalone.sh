@@ -7,7 +7,7 @@ require_binary curl
 require_binary unzip
 require_env_var STANDALONE_VERSION
 
-BASEURL=https://github.com/pact-foundation/pact-ruby-standalone/releases/download
+BASEURL=https://github.com/pact-foundation/pact-standalone/releases/download
 STANDALONE_DIR="${LIB_DIR}/../../pact/standalone"
 
 function download_standalone {
@@ -71,7 +71,7 @@ case ${detected_os} in
     download_standalone "pact-${STANDALONE_VERSION}-windows-x86_64.zip"            "windows-x64-${STANDALONE_VERSION}.zip"
     ;;
   *)
-  echo "Sorry, you'll need to install the pact-ruby-standalone manually."
+  echo "Sorry, you'll need to install the pact-standalone manually."
   echo "or add your os to the list"
   exit 1
     ;;

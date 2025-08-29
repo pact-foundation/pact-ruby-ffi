@@ -117,7 +117,7 @@ case ${detected_os} in
     os='win32'
     ;;
   *)
-  echo "Sorry, you'll need to install the pact-ruby-standalone manually."
+  echo "Sorry, you'll need to install the pact-standalone manually."
   echo "or add your os to the list"
   exit 1
     ;;
