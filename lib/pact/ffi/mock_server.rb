@@ -71,9 +71,7 @@ module PactFfi
       'RESULT_FAILED' => 1,
     ]
 
-    attach_function :create, :pactffi_create_mock_server, %i[string string bool], :int32
     attach_function :get_tls_cert, :pactffi_get_tls_ca_certificate, %i[], :string
-    attach_function :create_for_pact, :pactffi_create_mock_server_for_pact, %i[uint16 string bool], :int32
     attach_function :create_for_transport, :pactffi_create_mock_server_for_transport, %i[uint16 string uint16 string string], :int32
     attach_function :matched, :pactffi_mock_server_matched, %i[int32], :bool
     attach_function :mismatches, :pactffi_mock_server_mismatches, %i[int32], :string

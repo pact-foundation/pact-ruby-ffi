@@ -21,7 +21,7 @@ RSpec.describe 'new_message spec' do
       }
     end
 
-    let(:mock_server_port) { PactFfi::MockServer.create_for_pact(pact, '127.0.0.1:0', false) }
+    let(:mock_server_port) { PactFfi::MockServer.create_for_transport(pact, '127.0.0.1', 0, 'http', nil) }
     let(:pact) { PactFfi::HttpConsumer.new_pact('http-consumer-2', 'http-provider') }
     let(:interaction) { PactFfi::HttpConsumer.new_interaction(pact, 'A PUT request to generate book cover') }
     let(:message_pact)  { PactFfi.new_pact('message-consumer-2', 'message-provider') }
@@ -100,7 +100,7 @@ RSpec.describe 'new_message spec' do
       }
     end
 
-    let(:mock_server_port) { PactFfi::MockServer.create_for_pact(pact, '127.0.0.1:0', false) }
+    let(:mock_server_port) { PactFfi::MockServer.create_for_transport(pact, '127.0.0.1', 0, 'http', nil) }
     let(:pact) { PactFfi::HttpConsumer.new_pact('http-consumer-2', 'http-provider') }
     let(:interaction) { PactFfi::HttpConsumer.new_interaction(pact, 'A PUT request to generate book cover') }
     let(:message_pact)  { PactFfi.new_pact('message-consumer-2', 'message-provider') }
