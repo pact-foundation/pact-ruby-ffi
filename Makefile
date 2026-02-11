@@ -34,12 +34,6 @@ test_pactffi_create_mock_server_for_pact:
 show_pactffi_create_mock_server_for_pact:
 	cat pacts/http-consumer-1-http-provider.json | jq .
 
-test_pactffi_create_mock_server: 
-	bundle exec rspec spec/pactffi_create_mock_server_spec.rb
-
-show_pactffi_create_mock_server:
-	cat "pacts/Consumer-pact-ruby-ffi-Alice Service.json" | jq .
-
 grpc: install_demo_grpc test_demo_gprc_pact verify_demo_gprc_local
 install_demo_grpc:
 	cd examples/area_calculator && bundle install

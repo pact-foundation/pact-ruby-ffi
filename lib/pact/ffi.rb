@@ -325,9 +325,7 @@ module PactFfi
   attach_function :sync_message_get_provider_state_iter, :pactffi_sync_message_get_provider_state_iter, %i[pointer],
                   :pointer
   attach_function :string_delete, :pactffi_string_delete, %i[string], :void
-  attach_function :create_mock_server, :pactffi_create_mock_server, %i[string string bool], :int32
   attach_function :get_tls_ca_certificate, :pactffi_get_tls_ca_certificate, %i[], :string
-  attach_function :create_mock_server_for_pact, :pactffi_create_mock_server_for_pact, %i[uint16 string bool], :int32
   attach_function :create_mock_server_for_transport, :pactffi_create_mock_server_for_transport,
                   %i[uint16 string uint16 string string], :int32
   attach_function :mock_server_matched, :pactffi_mock_server_matched, %i[int32], :bool
@@ -381,7 +379,6 @@ module PactFfi
   attach_function :new_async_message, :pactffi_new_async_message, %i[uint16 string], :uint32_type
   attach_function :free_pact_handle, :pactffi_free_pact_handle, %i[uint16], :uint32_type
   attach_function :free_message_pact_handle, :pactffi_free_message_pact_handle, %i[uint16], :uint32_type
-  attach_function :verify, :pactffi_verify, %i[string], :int32
   attach_function :verifier_new, :pactffi_verifier_new, %i[], :pointer
   attach_function :verifier_new_for_application, :pactffi_verifier_new_for_application, %i[string string], :pointer
   attach_function :verifier_shutdown, :pactffi_verifier_shutdown, %i[pointer], :void
@@ -409,7 +406,6 @@ module PactFfi
   attach_function :verifier_broker_source_with_selectors, :pactffi_verifier_broker_source_with_selectors,
                   %i[pointer string string string string uint8 string pointer uint16 string pointer uint16 pointer uint16], :int32
   attach_function :verifier_execute, :pactffi_verifier_execute, %i[pointer], :int32
-  attach_function :verifier_cli_args, :pactffi_verifier_cli_args, %i[], :string
   attach_function :verifier_logs, :pactffi_verifier_logs, %i[pointer], :string
   attach_function :verifier_logs_for_provider, :pactffi_verifier_logs_for_provider, %i[string], :string
   attach_function :verifier_output, :pactffi_verifier_output, %i[pointer uint8], :string

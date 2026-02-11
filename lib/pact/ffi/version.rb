@@ -1,5 +1,5 @@
 module Pact
   module Version
-    VERSION = '0.4.28.0'
+    VERSION = '0.5.2.0'
   end
 end

@@ -28,7 +28,6 @@ module PactFfi
       'INVALID_ARGUMENTS' => 4,
     ]
 
-    attach_function :verify, :pactffi_verify, %i[string], :int32
     attach_function :new, :pactffi_verifier_new, %i[], :pointer
     attach_function :new_for_application, :pactffi_verifier_new_for_application, %i[string string], :pointer
     attach_function :shutdown, :pactffi_verifier_shutdown, %i[pointer], :void
@@ -53,7 +52,6 @@ module PactFfi
     attach_function :broker_source_with_selectors, :pactffi_verifier_broker_source_with_selectors,
                     %i[pointer string string string string uint8 string pointer uint16 string pointer uint16 pointer uint16], :int32
     attach_function :execute, :pactffi_verifier_execute, %i[pointer], :int32
-    attach_function :cli_args, :pactffi_verifier_cli_args, %i[], :string
     attach_function :logs, :pactffi_verifier_logs, %i[pointer], :string
     attach_function :logs_for_provider, :pactffi_verifier_logs_for_provider, %i[string], :string
     attach_function :output, :pactffi_verifier_output, %i[pointer uint8], :string
