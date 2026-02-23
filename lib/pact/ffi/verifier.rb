@@ -56,5 +56,6 @@ module PactFfi
     attach_function :logs_for_provider, :pactffi_verifier_logs_for_provider, %i[string], :string
     attach_function :output, :pactffi_verifier_output, %i[pointer uint8], :string
     attach_function :json, :pactffi_verifier_json, %i[pointer], :string
+    attach_function :set_follow_redirects, :pactffi_verifier_set_follow_redirects, %i[pointer uint8], :void
   end
 end

@@ -42,4 +42,12 @@ RSpec.describe 'pactffi verifier spec' do
     result = PactFfi::Verifier.execute(verifier)
     expect(result).to eq(PactFfi::Verifier::Response['VERIFICATION_SUCCESSFUL'])
   end
+
+  it 'should allow setting follow redirects' do
+    # Test that the function can be called without error
+    # Setting to 0 (false) should disable redirects
+    PactFfi::Verifier.set_follow_redirects(verifier, 0)
+    # Setting to 1 (true) should enable redirects
+    PactFfi::Verifier.set_follow_redirects(verifier, 1)
+  end
 end
