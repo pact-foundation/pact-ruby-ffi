@@ -21,4 +21,5 @@ jobs:
         uses: rubygems/configure-rubygems-credentials@main
         with:
           api-token: ${{ secrets.RUBYGEMS_TOKEN }}
+          audience: ""
       - run: bundle exec rake build
