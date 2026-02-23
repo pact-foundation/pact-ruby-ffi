@@ -1,0 +1,24 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+      - run: gem update bundler
+      - run: make install
+      - run: make download_all_libs
+      - name: Configure RubyGems Credentials
+        uses: rubygems/configure-rubygems-credentials@main
+        with:
+          api-token: ${{ secrets.RUBYGEMS_API_TOKEN }}
+      - run: bundle exec rake build
