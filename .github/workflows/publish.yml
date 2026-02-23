@@ -20,5 +20,5 @@ jobs:
       - name: Configure RubyGems Credentials
         uses: rubygems/configure-rubygems-credentials@main
         with:
-          api-token: ${{ secrets.RUBYGEMS_API_TOKEN }}
+          api-token: ${{ secrets.RUBYGEMS_TOKEN }}
       - run: bundle exec rake build
