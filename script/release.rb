@@ -5,7 +5,6 @@ require 'open3'
 
 RELEASE_BRANCH      = 'release/pact-ffi'
 VERSION_FILE        = 'lib/pact/ffi/version.rb'
-FFI_VERSION_FILE    = 'script/lib/export-binary-versions.sh'
 UPSTREAM_REPO       = 'pact-foundation/pact-reference'
 UPSTREAM_TAG_PREFIX = 'libpact_ffi-v'
 
@@ -58,13 +57,14 @@ def prepare
 
   puts "Preparing release #{tag} (upstream libpact_ffi #{upstream})..."
 
+  # The FFI binary version is derived from version.rb at build time
+  # (see script/download_libs.rb), so bumping version.rb is sufficient.
   File.write(VERSION_FILE, File.read(VERSION_FILE).sub(/VERSION = '[^']*'/, "VERSION = '#{bumped}'"))
-  File.write(FFI_VERSION_FILE, File.read(FFI_VERSION_FILE).sub(/FFI_VERSION=\S+/, "FFI_VERSION=v#{upstream}"))
 
   run!('git', 'cliff', '--unreleased', '--tag', tag, '--prepend', 'CHANGELOG.md')
 
   run!('git', 'checkout', '-B', RELEASE_BRANCH, 'origin/main')
-  run!('git', 'add', VERSION_FILE, FFI_VERSION_FILE, 'CHANGELOG.md')
+  run!('git', 'add', VERSION_FILE, 'CHANGELOG.md')
   run!('git', 'commit', '-m', "chore: prepare release #{tag}")
   run!('git', 'push', '--force', 'origin', RELEASE_BRANCH)
 
