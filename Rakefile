@@ -1,66 +1,13 @@
 require 'rspec/core/rake_task'
 require 'rubygems/package'
 require 'pact/ffi/version'
+require_relative 'script/lib/platforms'
 RSpec::Core::RakeTask.new(:spec)
 
 task default: :spec
 
-## Supportable platforms with FFI
+PLATFORMS = Pact::Ffi.gem_build_targets
 
-# aarch64-linux
-# arm64-darwin
-# x64-mingw-ucrt
-# x86_64-darwin
-# x86_64-linux
-
-## Additional platforms supported by Nokogiri
-
-# arm-linux
-# x86-linux
-# x86-mingw32
-
-PLATFORMS = [
-  {
-    ruby_platform: 'aarch64-linux',
-    ffi_location: 'linux-arm64',
-    ffi_name: 'libpact_ffi.so'
-  },
-  {
-    ruby_platform: 'aarch64-linux-musl',
-    ffi_location: 'linux-arm64-musl',
-    ffi_name: 'libpact_ffi.so'
-  },
-  {
-    ruby_platform: 'arm64-darwin',
-    ffi_location: 'macos-arm64',
-    ffi_name: 'libpact_ffi.dylib'
-  },
-  {
-    ruby_platform: 'x86_64-linux',
-    ffi_location: 'linux-x64',
-    ffi_name: 'libpact_ffi.so'
-  },
-  {
-    ruby_platform: 'x86_64-linux-musl',
-    ffi_location: 'linux-x64-musl',
-    ffi_name: 'libpact_ffi.so'
-  },
-  {
-    ruby_platform: 'x86_64-darwin',
-    ffi_location: 'macos-x64',
-    ffi_name: 'libpact_ffi.dylib'
-  },
-  {
-    ruby_platform: 'x64-mingw-ucrt',
-    ffi_location: 'windows-x64',
-    ffi_name: 'pact_ffi.dll'
-  },
-  {
-    ruby_platform: 'x64-mingw32',
-    ffi_location: 'windows-x64',
-    ffi_name: 'pact_ffi.dll'
-  }
-]
 task :build do
   gemspec = Gem::Specification.load('pact-ffi.gemspec')
   sh 'mkdir -p pkg'
@@ -81,22 +28,13 @@ task :clean do
 end
 
 task :yank do
-  sh "gem yank pact-ffi -v #{Pact::Version::VERSION} --platform arm64-darwin"
-  sh "gem yank pact-ffi -v #{Pact::Version::VERSION} --platform x64-mingw-ucrt"
-  sh "gem yank pact-ffi -v #{Pact::Version::VERSION} --platform x86_64-darwin"
-  sh "gem yank pact-ffi -v #{Pact::Version::VERSION} --platform aarch64-linux"
-  sh "gem yank pact-ffi -v #{Pact::Version::VERSION} --platform x86_64-linux"
-  sh "gem yank pact-ffi -v #{Pact::Version::VERSION} --platform aarch64-linux-musl"
-  sh "gem yank pact-ffi -v #{Pact::Version::VERSION} --platform x86_64-linux-musl"
+  Pact::Ffi::GEM_PLATFORMS.each_key do |platform|
+    sh "gem yank pact-ffi -v #{Pact::Version::VERSION} --platform #{platform}"
+  end
 end
 
 task :push do
-  sh "cd pkg && gem push pact-ffi-#{Pact::Version::VERSION}-arm64-darwin.gem"
-  sh "cd pkg && gem push pact-ffi-#{Pact::Version::VERSION}-x64-mingw-ucrt.gem"
-  sh "cd pkg && gem push pact-ffi-#{Pact::Version::VERSION}-x86_64-darwin.gem"
-  sh "cd pkg && gem push pact-ffi-#{Pact::Version::VERSION}-aarch64-linux.gem"
-  sh "cd pkg && gem push pact-ffi-#{Pact::Version::VERSION}-x86_64-linux.gem"
-  sh "cd pkg && gem push pact-ffi-#{Pact::Version::VERSION}-aarch64-linux-musl.gem"
-  sh "cd pkg && gem push pact-ffi-#{Pact::Version::VERSION}-x86_64-linux-musl.gem"
-  sh "cd pkg && gem push pact-ffi-#{Pact::Version::VERSION}-x64-mingw32.gem"
+  Pact::Ffi::GEM_PLATFORMS.each_key do |platform|
+    sh "cd pkg && gem push pact-ffi-#{Pact::Version::VERSION}-#{platform}.gem"
+  end
 end

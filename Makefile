@@ -12,11 +12,11 @@ endif
 install: 
 	bundle install
 
-download_libs: 
-	./script/download-libs.sh
+download_libs:
+	ruby script/download_libs.rb
 
-download_all_libs: 
-	./script/download-all-libs.sh
+download_all_libs:
+	ruby script/download_libs.rb --all
 
 test: 
 	bundle exec rspec spec/*
