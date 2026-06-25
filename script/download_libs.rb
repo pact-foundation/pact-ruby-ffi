@@ -61,7 +61,13 @@ end
 def fetch_gz(url, dest)
   gz = "#{dest}.gz"
   fetch(url, gz)
-  File.open(dest, 'wb') { |out| Zlib::GzipReader.open(gz) { |gzip| out.write(gzip.read) } }
+  File.open(dest, 'wb') do |out|
+    Zlib::GzipReader.open(gz) do |reader|
+      while (chunk = reader.read(65_536))
+        out.write(chunk)
+      end
+    end
+  end
   File.delete(gz)
 end
 
