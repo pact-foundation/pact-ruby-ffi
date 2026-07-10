@@ -38,5 +38,6 @@ module PactFfi
     attach_function :with_matching_rules, :pactffi_with_matching_rules, %i[uint32_type int32 string], :bool
     attach_function :with_generators, :pactffi_with_generators, %i[uint32_type int32 string], :bool
     attach_function :with_multipart_file_v2, :pactffi_with_multipart_file_v2, %i[uint32_type int32 string string string string], :pointer
+    attach_function :add_interaction_reference, :pactffi_add_interaction_reference, %i[uint32_type string string string], :bool
   end
 end
