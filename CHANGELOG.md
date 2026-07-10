@@ -6,17 +6,37 @@ All notable changes to this project will be documented in this file.
 <!-- markdownlint-disable emph-style -->
 <!-- markdownlint-disable strong-style -->
 
-## [unreleased]
+## [0.5.4.0] _2026-07-10_
+
+### 🚀 Features
+
+-   Bind pactffi_add_interaction_reference
+
+### 🐛 Bug Fixes
+
+-   Add logger dependency for Ruby 4.0
+
+### 🚜 Refactor
+
+-   Replace bash download scripts with Ruby
+
+### 📚 Documentation
+
+-   Update developer documentation
+-   Note the FFI version is derived from version.rb
 
 ### 🛠️ Miscellaneous Tasks
 
--   Remove legacy CI and dev scripts
--   Remove legacy Dockerfiles
--   Add git-cliff configuration
--   Add release helper script
--   _(ci)_ Modernise test matrix — Ruby 3.3/3.4/4.0, native ARM Alpine, fast PR path
--   _(ci)_ Add PR-driven release workflow
+-   Remove legacy files
+-   Add release tooling
+-   _(ci)_ Modernise test matrix and add PR-driven release workflow
+-   Fix buffer limit on Alpine Ruby 3.3
+-   _(ci)_ Minor refactor
+-   Add ruby version file
 
+### Contributors
+
+-   @JP-Ellis
 
 ## [0.5.3.0] _2026-02-23_
 
