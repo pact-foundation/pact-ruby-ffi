@@ -13,6 +13,7 @@ on:
       - opened
       - synchronize
       - reopened
+      - ready_for_review
       - closed
 
 permissions:
@@ -65,6 +66,7 @@ jobs:
     if: >-
       github.event_name == 'pull_request' &&
       github.event.action != 'closed' &&
+      github.event.pull_request.draft == false &&
       github.event.pull_request.head.ref == 'release/pact-ffi'
     runs-on: ubuntu-latest
     steps:
