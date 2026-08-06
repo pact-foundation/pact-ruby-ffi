@@ -35,5 +35,6 @@ module PactFfi
     attach_function :get_provider_state_iter, :pactffi_sync_message_get_provider_state_iter, %i[pointer], :pointer
     attach_function :new_interaction, :pactffi_new_sync_message_interaction, %i[uint16 string], :uint32_type
     attach_function :get_iter, :pactffi_pact_handle_get_sync_message_iter, %i[uint16], :pointer
+    attach_function :add_interaction_reference, :pactffi_add_interaction_reference, %i[uint32_type string string string], :bool
   end
 end

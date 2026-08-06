@@ -412,6 +412,7 @@ module PactFfi
   attach_function :verifier_json, :pactffi_verifier_json, %i[pointer], :string
   attach_function :verifier_set_follow_redirects, :pactffi_verifier_set_follow_redirects, %i[pointer uint8], :void
   attach_function :using_plugin, :pactffi_using_plugin, %i[uint16 string string], :uint32_type
+  attach_function :using_plugin_with_delay, :pactffi_using_plugin_with_delay, %i[uint16 string string ulong_long], :uint32_t
   attach_function :cleanup_plugins, :pactffi_cleanup_plugins, %i[uint16], :void
   attach_function :interaction_contents, :pactffi_interaction_contents, %i[uint32_type int32 string string],
                   :uint32_type
@@ -446,4 +447,8 @@ module PactFfi
   attach_function :set_comment, :pactffi_set_comment, %i[uint32_type string string], :bool
   attach_function :add_text_comment, :pactffi_add_text_comment, %i[uint32_type string], :bool
   attach_function :pact_handle_get_async_message_iter, :pactffi_pact_handle_get_async_message_iter, %i[uint16], :pointer
+  attach_function :add_interaction_reference, :pactffi_add_interaction_reference, %i[uint32_type string string string], :bool
+  attach_function :set_test_run_id, :pactffi_set_test_run_id, %i[string], :void
+  attach_function :register_plugin_log_callback, :pactffi_register_plugin_log_callback, %i[pointer], :void
+  attach_function :get_plugin_logs, :pactffi_get_plugin_logs, %i[string], :string
 end
