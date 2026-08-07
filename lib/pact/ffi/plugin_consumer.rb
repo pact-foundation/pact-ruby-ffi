@@ -33,7 +33,7 @@ module PactFfi
     ]
 
     attach_function :using_plugin, :pactffi_using_plugin, %i[uint16 string string], :uint32_type
-    attach_function :using_plugin_with_delay, :pactffi_using_plugin_with_delay, %i[uint16 string string ulong_long], :uint32_t
+    attach_function :using_plugin_with_delay, :pactffi_using_plugin_with_delay, %i[uint16 string string ulong_long], :uint32_type
     attach_function :cleanup_plugins, :pactffi_cleanup_plugins, %i[uint16], :void
     attach_function :interaction_contents, :pactffi_interaction_contents, %i[uint32_type int32 string string],
                     :uint32_type
