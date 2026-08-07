@@ -6,6 +6,16 @@ All notable changes to this project will be documented in this file.
 <!-- markdownlint-disable emph-style -->
 <!-- markdownlint-disable strong-style -->
 
+## [0.5.6.1] _2026-08-07_
+
+### 🛠️ Miscellaneous Tasks
+
+-   Use uint32 on windows as uint32_t not avail
+
+### Contributors
+
+-   @YOU54F
+
 ## [0.5.4.0] _2026-07-10_
 
 ### 🚀 Features
