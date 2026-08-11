@@ -79,7 +79,7 @@ jobs:
             cd /app && make download_all_libs && git config --global --add safe.directory /app && make install && make test'
 
   grpc-protobuf-plugin:
-    if: github.event_name != 'pull_request'
+    # if: github.event_name != 'pull_request'
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
