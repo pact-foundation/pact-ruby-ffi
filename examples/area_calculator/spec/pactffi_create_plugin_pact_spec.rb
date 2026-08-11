@@ -37,7 +37,8 @@ RSpec.describe 'pactffi_new_plugin spec' do
     end
 
     let(:pact) do
-      PactFfi.init
+      PactFfi.init('PACT_LOG_LEVEL')
+      #  PactFfi.init_with_log_level('info')
       PactFfi.new_pact('grpc-consumer-ruby', 'area-calculator-provider')
     end
     let(:message_pact) do
@@ -99,7 +100,8 @@ RSpec.describe 'pactffi_new_plugin spec' do
     end
 
     let(:pact) do
-      PactFfi.init
+      PactFfi.init('PACT_LOG_LEVEL')
+      # PactFfi.init_with_log_level('info')
       PactFfi.new_pact('grpc-consumer-ruby', 'area-calculator-provider')
     end
     let(:message_pact) do
