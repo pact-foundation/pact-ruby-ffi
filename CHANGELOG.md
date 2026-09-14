@@ -6,6 +6,21 @@ All notable changes to this project will be documented in this file.
 <!-- markdownlint-disable emph-style -->
 <!-- markdownlint-disable strong-style -->
 
+## [0.5.8.1] _2026-09-14_
+
+### 📦 Other
+
+-   Bump pact-ffi to 0.5.7
+-   Copy ci test trigger to grpc job
+
+### 🛠️ Miscellaneous Tasks
+
+-   Use uint32 on windows as uint32_t not avail
+
+### Contributors
+
+-   @YOU54F
+
 ## [0.5.4.0] _2026-07-10_
 
 ### 🚀 Features
