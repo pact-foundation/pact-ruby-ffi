@@ -12,7 +12,8 @@
 # tracks its own upstream and is pinned here.
 
 require 'fileutils'
-require 'zlib'
+require 'digest'
+require 'tmpdir'
 require_relative 'lib/platforms'
 require_relative '../lib/pact/ffi/version'
 
@@ -58,17 +59,44 @@ def fetch(url, dest)
     system('curl', '--silent', '--show-error', '--fail', '--location', '--output', dest, url)
 end
 
-def fetch_gz(url, dest)
-  gz = "#{dest}.gz"
-  fetch(url, gz)
-  File.open(dest, 'wb') do |out|
-    Zlib::GzipReader.open(gz) do |reader|
-      while (chunk = reader.read(65_536))
-        out.write(chunk)
+# Downloads the `pact_ffi-<target>` archive, checks it against its published
+# .sha256 and extracts only the shared library to `dest`. Windows archives are
+# zips with the files at the root; the others are tar.xz with a top-level
+# `pact_ffi-<target>/` directory.
+def fetch_ffi_lib(native, dest)
+  target  = native[:target]
+  windows = target.include?('windows')
+  name    = "pact_ffi-#{target}.#{windows ? 'zip' : 'tar.xz'}"
+  url     = "#{FFI_BASE_URL}/pact_ffi-#{ffi_version}/#{name}"
+
+  Dir.mktmpdir('pact_ffi') do |tmp|
+    archive = File.join(tmp, name)
+    fetch(url, archive)
+    fetch("#{url}.sha256", "#{archive}.sha256")
+    verify_sha256(archive)
+
+    extracted =
+      if windows
+        system('unzip', '-qo', archive, native[:lib], '-d', tmp)
+      else
+        system('tar', '-xf', archive, '-C', tmp)
       end
-    end
+    abort "❌  Failed to extract #{archive}" unless extracted
+
+    src = windows ? File.join(tmp, native[:lib]) : File.join(tmp, "pact_ffi-#{target}", native[:lib])
+    abort "❌  #{native[:lib]} not found in #{name}" unless File.file?(src)
+
+    FileUtils.mkdir_p(File.dirname(dest))
+    FileUtils.cp(src, dest)
   end
-  File.delete(gz)
+end
+
+# The .sha256 file holds `<hex> *<archive name>`.
+def verify_sha256(archive)
+  expected = File.read("#{archive}.sha256").split.first
+  actual   = Digest::SHA256.file(archive).hexdigest
+  abort "❌  Checksum mismatch for #{File.basename(archive)}: expected #{expected}, got #{actual}" unless
+    expected == actual
 end
 
 def download_ffi(all:)
@@ -78,12 +106,11 @@ def download_ffi(all:)
 
   libs = all ? Pact::Ffi::NATIVE_LIBS : [Pact::Ffi.native_lib(current_dir)]
   libs.each do |native|
-    fetch_gz("#{FFI_BASE_URL}/libpact_ffi-#{ffi_version}/#{native[:asset]}",
-             File.join(ffi_dir, native[:dir], native[:lib]))
+    fetch_ffi_lib(native, File.join(ffi_dir, native[:dir], native[:lib]))
   end
 
   %w[pact.h pact-cpp.h].each do |header|
-    fetch("#{FFI_BASE_URL}/libpact_ffi-#{ffi_version}/#{header}", File.join(ffi_dir, header))
+    fetch("#{FFI_BASE_URL}/pact_ffi-#{ffi_version}/#{header}", File.join(ffi_dir, header))
   end
 
   File.write(File.join(ffi_dir, 'README.md'),

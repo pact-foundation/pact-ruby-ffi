@@ -6,7 +6,7 @@ require 'open3'
 RELEASE_BRANCH      = 'release/pact-ffi'
 VERSION_FILE        = 'lib/pact/ffi/version.rb'
 UPSTREAM_REPO       = 'pact-foundation/pact-reference'
-UPSTREAM_TAG_PREFIX = 'libpact_ffi-v'
+UPSTREAM_TAG_PREFIX = 'pact_ffi-v'
 
 def run!(*cmd)
   out, status = Open3.capture2e(*cmd)
