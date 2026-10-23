@@ -6,6 +6,16 @@ All notable changes to this project will be documented in this file.
 <!-- markdownlint-disable emph-style -->
 <!-- markdownlint-disable strong-style -->
 
+## [0.5.12.1] _2026-10-23_
+
+### 🛠️ Miscellaneous Tasks
+
+-   Download pact_ffi from the dist-built release
+
+### Contributors
+
+-   @JP-Ellis
+
 ## [0.5.8.1] _2026-09-14_
 
 ### 📦 Other
